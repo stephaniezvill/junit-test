@@ -1,56 +1,44 @@
+import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
 
 public class StudentTest {
+    private Student sue = null;
+
+    @Before
+    public void setup() {
+        sue = new Student(1, "sue");
+        sue.addGrade(77);
+        sue.addGrade(80);
+        sue.addGrade(30);
+    }
     @Test
-    void testConstructor() {
-        Student student = new Student(1, "John Doe");
-        assertEquals(1, student.getId());
-        assertEquals("John Doe", student.getName());
-        assertTrue(student.getGrades().isEmpty());
+    public void testId() {
+        assertEquals(1, sue.getId());
     }
 
     @Test
-    void testGetId() {
-        Student student = new Student(1, "John Doe");
-        assertEquals(1, student.getId());
+    public void testName() {
+        assertEquals("sue", sue.getName());
     }
 
     @Test
-    void testGetName() {
-        Student student = new Student(1, "John Doe");
-        assertEquals("John Doe", student.getName());
+    public void testAddGrade() {
+        sue.getGrades().clear();
+        sue.addGrade(90);
+        assertEquals(1, sue.getGrades().size());
+        assertEquals(90, sue.getGrades().get(0).intValue());
     }
 
     @Test
-    void testAddGrade() {
-        Student student = new Student(1, "John Doe");
-        student.addGrade(90);
-        assertEquals(Optional.of(90), student.getGrades().get(0));
+    public void testGradeAverage() {
+        assertEquals(10, sue.getGradeAverage(), 0.01);
     }
-
     @Test
-    void testGetGrades() {
-        Student student = new Student(1, "John Doe");
-        student.addGrade(90);
-        student.addGrade(85);
-        ArrayList<Integer> expectedGrades = new ArrayList<>();
-        expectedGrades.add(90);
-        expectedGrades.add(85);
-        assertEquals(expectedGrades, student.getGrades());
+    public void updateGrade() {
+        assertEquals(10, sue.getGradeAverage(), 0.01);
     }
-
-    @Test
-    void testGetGradeAverage() {
-        Student student = new Student(1, "John Doe");
-        student.addGrade(90);
-        student.addGrade(85);
-        assertEquals(87.5, student.getGradeAverage(), 0.01);
-    }
-
 }

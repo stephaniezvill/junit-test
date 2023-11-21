@@ -1,5 +1,14 @@
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.ArrayList;
 
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class Student {
     private long id;
     private String name;
@@ -8,47 +17,25 @@ public class Student {
     public Student(long id, String name) {
         this.id = id;
         this.name = name;
-        this.grades = new ArrayList<>();
+        grades = new ArrayList<>();
+
     }
 
-    public long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id;
     }
-
-    public String getName() {
-        return name;
-    }
-
     public void addGrade(int grade) {
         grades.add(grade);
     }
-
-    public ArrayList<Integer> getGrades() {
-        return grades;
-    }
-
     public double getGradeAverage() {
         double sum = 0;
-        for (int grade : grades) {
-            sum += grade;
+        for (Integer grade : grades) {
+            sum =+ grade;
         }
-        return sum / grades.size();
+        return sum/ grades.size();
     }
-    public void updateGrade(int index, int newGrade) {
-        if (index >= 0 && index < grades.size()) {
-            grades.set(index, newGrade);
-        } else {
-            throw new IndexOutOfBoundsException("Index out of bounds");
-        }
-        public void deleteGrade(int index) {
-            if (index >= 0 && index < grades.size()) {
-                grades.remove(index);
-            } else {
-                throw new IndexOutOfBoundsException("Index out of bounds");
-            }
-        }
-    }
-
-
 }
-
